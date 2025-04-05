@@ -2,8 +2,8 @@
 
 ## Status
 
-<a target="_blank" href="https://github.com/ivancarlosti/wifinoqr"><img src="https://img.shields.io/github/stars/ivancarlosti/wifinoqr?style=flat" /></a>
-<a target="_blank" href="https://github.com/ivancarlosti/wifinoqr"><img src="https://img.shields.io/github/last-commit/ivancarlosti/wifinoqr" /></a>
+<a target="_blank" href="https://github.com/ivancarlosti/wificode"><img src="https://img.shields.io/github/stars/ivancarlosti/wificode?style=flat" /></a>
+<a target="_blank" href="https://github.com/ivancarlosti/wificode"><img src="https://img.shields.io/github/last-commit/ivancarlosti/wificode" /></a>
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/ivancarlosti?label=GitHub%20Sponsors)](https://github.com/sponsors/ivancarlosti)
 [![pages-build-deployment](https://github.com/ivancarlosti/wificode/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/ivancarlosti/wificode/actions/workflows/pages/pages-build-deployment)
 [![sync-qifi-content](https://github.com/ivancarlosti/wificode/actions/workflows/sync-qifi-content.yml/badge.svg)](https://github.com/ivancarlosti/wificode/actions/workflows/sync-qifi-content.yml)
