@@ -1,0 +1,76 @@
+name: Sync QiFi Content to Main
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Runs at 00:38 and 12:38 UTC every day
+    - cron: '28 */12 * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout YOUR repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: main
+        repository: ivancarlosti/wificode
+        clean: true
+        persist-credentials: true
+
+    - name: Reset Git remote
+      run: |
+        git remote remove origin || true
+        git remote add origin https://github.com/ivancarlosti/wificode.git
+        git remote -v
+
+    - name: Download QiFi content
+      run: |
+        # Create temp folder OUTSIDE repository
+        mkdir -p /tmp/qifi_temp
+        cd /tmp/qifi_temp
+        git clone --branch gh-pages --depth 1 https://github.com/evgeni/qifi.git
+        echo "=== Copying files ==="
+        rsync -av \
+          --exclude='.github' \
+          --exclude='.git' \
+          --exclude='favicon.ico' \
+          --exclude='index.html' \
+          ReactFlux/ "$GITHUB_WORKSPACE/"
+        echo "=== Files copied to repository ==="
+        ls -la "$GITHUB_WORKSPACE"
+
+    - name: Cleanup temp files
+      run: |
+        echo "=== Cleaning up ==="
+        rm -rf /tmp/qifi_temp
+        echo "Temp folder contents:"
+        ls -la /tmp/qifi_temp 2>/dev/null || echo "Temp folder removed"
+
+    - name: Commit changes
+      run: |
+        cd "$GITHUB_WORKSPACE"
+        git config --global user.email "ivan@ivancarlos.com.br"
+        git config --global user.name "ivancarlosti"
+        git add .
+        
+        if [ -n "$(git status --porcelain)" ]; then
+          git commit -m "Sync ReactFlux content [automated]"
+          echo "=== Commit details ==="
+          git show --stat
+        else
+          echo "No changes to commit"
+          exit 0
+        fi
+
+    - name: Push changes
+      run: |
+        cd "$GITHUB_WORKSPACE"
+        git push \
+          https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/ivancarlosti/wificode.git \
+          HEAD:main
+        echo "=== Push successful ==="
