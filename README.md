@@ -8,9 +8,9 @@
 [![pages-build-deployment](https://github.com/ivancarlosti/wificode/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/ivancarlosti/wificode/actions/workflows/pages/pages-build-deployment)
 [![sync-qifi-content](https://github.com/ivancarlosti/wificode/actions/workflows/sync-qifi-content.yml/badge.svg)](https://github.com/ivancarlosti/wificode/actions/workflows/sync-qifi-content.yml)
 
-## License
+## Inspiration
 
-1. Expat/MIT License. See the `LICENSE` file for details. [Author license](https://github.com/evgeni/qifi/blob/gh-pages/LICENSE) preserved.
+1. Project inspired by [qifi](https://github.com/evgeni/qifi/), license preserved.
 
 ## Installation
 
