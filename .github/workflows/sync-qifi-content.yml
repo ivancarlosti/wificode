@@ -33,7 +33,7 @@ jobs:
         # Create temp folder OUTSIDE repository
         mkdir -p /tmp/qifi_temp
         cd /tmp/qifi_temp
-        git clone --branch gh-pages --depth 1 https://github.com/evgeni/qifi.git
+        git clone --recurse-submodules --branch gh-pages --depth 1 https://github.com/evgeni/qifi.git
         echo "=== Copying files ==="
         rsync -av \
           --exclude='.github' \
