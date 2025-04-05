@@ -44,7 +44,7 @@ jobs:
           --exclude='README.md' \
           --exclude='LICENSE' \
           --exclude='CNAME' \
-          ReactFlux/ "$GITHUB_WORKSPACE/"
+          qifi/ "$GITHUB_WORKSPACE/"
         echo "=== Files copied to repository ==="
         ls -la "$GITHUB_WORKSPACE"
 
@@ -63,7 +63,7 @@ jobs:
         git add .
         
         if [ -n "$(git status --porcelain)" ]; then
-          git commit -m "Sync ReactFlux content [automated]"
+          git commit -m "Sync QiFi content [automated]"
           echo "=== Commit details ==="
           git show --stat
         else
