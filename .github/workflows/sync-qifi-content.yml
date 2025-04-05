@@ -64,7 +64,7 @@ jobs:
         git add .
         
         if [ -n "$(git status --porcelain)" ]; then
-          git commit -m "Sync QiFi content [automated]"
+          git commit -m "Sync QiFi content [▶️]"
           echo "=== Commit details ==="
           git show --stat
         else
