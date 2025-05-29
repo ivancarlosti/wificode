@@ -34,8 +34,6 @@ jobs:
         mkdir -p /tmp/qifi_temp
         cd /tmp/qifi_temp
         git clone --recurse-submodules --branch gh-pages --depth 1 https://github.com/evgeni/qifi.git
-        touch filename.txt
-        echo "Last executed on: $(date)" > filename.txt
         echo "=== Copying files ==="
         rsync -av \
           --exclude='.github' \
