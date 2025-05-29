@@ -45,6 +45,7 @@ jobs:
           --exclude='LICENSE' \
           --exclude='CNAME' \
           --exclude='robots.txt' \
+          --exclude='google41ac8389595913a0.html' \
           qifi/ "$GITHUB_WORKSPACE/"
         echo "=== Files copied to repository ==="
         ls -la "$GITHUB_WORKSPACE"
