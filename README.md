@@ -3,14 +3,14 @@ WiFi Code is a fully browser-based site for generating QR codes
 
 <!-- buttons -->
 [![Stars](https://img.shields.io/github/stars/ivancarlosti/wificode?label=⭐%20Stars&color=gold&style=flat)](https://github.com/ivancarlosti/wificode/stargazers)
+[![Watchers](https://img.shields.io/github/watchers/ivancarlosti/wificode?label=Watchers&style=flat&color=red)](https://github.com/sponsors/ivancarlosti)
+[![Forks](https://img.shields.io/github/forks/ivancarlosti/wificode?label=Forks&style=flat&color=ff69b4)](https://github.com/sponsors/ivancarlosti)
 [![GitHub last commit](https://img.shields.io/github/last-commit/ivancarlosti/wificode?label=Last%20Commit)](https://github.com/ivancarlosti/wificode/commits)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ivancarlosti/wificode?label=Activity)](https://github.com/ivancarlosti/wificode/pulse)
-[![GitHub Issues](https://img.shields.io/github/issues/ivancarlosti/wificode?label=Issues&color=orange)](https://github.com/ivancarlosti/wificode/issues)  
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ivancarlosti/wificode?label=Activity)](https://github.com/ivancarlosti/wificode/pulse)  
+[![GitHub Issues](https://img.shields.io/github/issues/ivancarlosti/wificode?label=Issues&color=orange)](https://github.com/ivancarlosti/wificode/issues)
 [![License](https://img.shields.io/github/license/ivancarlosti/wificode?label=License)](LICENSE)
 [![Security](https://img.shields.io/badge/Security-View%20Here-purple)](https://github.com/ivancarlosti/wificode/security)
-[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-1.4-4baaaa)](https://github.com/ivancarlosti/wificode/tree/main?tab=coc-ov-file)  
-[![sync-qifi-content](https://github.com/ivancarlosti/wificode/actions/workflows/sync-qifi-content.yml/badge.svg)](https://github.com/ivancarlosti/wificode/actions/workflows/sync-qifi-content.yml)  
-[![pages-build-deployment](https://github.com/ivancarlosti/wificode/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/ivancarlosti/wificode/actions/workflows/pages/pages-build-deployment)
+[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-2.1-4baaaa)](https://github.com/ivancarlosti/wificode?tab=coc-ov-file)
 <!-- endbuttons -->
 
 ## Inspiration
@@ -45,7 +45,7 @@ WiFi Code is a fully browser-based site for generating QR codes
 [![Threads](https://img.shields.io/badge/Threads-@ivancarlos-808080)](https://threads.net/@ivancarlos)
 [![X](https://img.shields.io/badge/X-@ivancarlos-000000)](https://x.com/ivancarlos)  
 [![Discord](https://img.shields.io/badge/Discord-@ivancarlos.me-5865F2)](https://discord.com/users/ivancarlos.me)
-[![Signal](https://img.shields.io/badge/Signal-@ivancarlos.01-2592E9)](https://icc.gg/-signal)
+[![Signal](https://img.shields.io/badge/Signal-@ivancarlos.01-2592E9)](https://icc.gg/.signal)
 [![Telegram](https://img.shields.io/badge/Telegram-@ivancarlos-26A5E4)](https://t.me/ivancarlos)  
 [![Website](https://img.shields.io/badge/Website-ivancarlos.me-FF6B6B)](https://ivancarlos.me)
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/ivancarlosti?label=GitHub%20Sponsors&color=ffc0cb)][sponsor]
