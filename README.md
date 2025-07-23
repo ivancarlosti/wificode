@@ -1,6 +1,7 @@
 # WiFi Code
 WiFi Code is a fully browser-based site for generating QR codes
 
+<!-- buttons -->
 [![Stars](https://img.shields.io/github/stars/ivancarlosti/wificode?label=⭐%20Stars&color=gold&style=flat)](https://github.com/ivancarlosti/wificode/stargazers)
 [![GitHub last commit](https://img.shields.io/github/last-commit/ivancarlosti/wificode?label=Last%20Commit)](https://github.com/ivancarlosti/wificode/commits)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ivancarlosti/wificode?label=Activity)](https://github.com/ivancarlosti/wificode/pulse)
@@ -10,6 +11,7 @@ WiFi Code is a fully browser-based site for generating QR codes
 [![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-1.4-4baaaa)](https://github.com/ivancarlosti/wificode/tree/main?tab=coc-ov-file)  
 [![sync-qifi-content](https://github.com/ivancarlosti/wificode/actions/workflows/sync-qifi-content.yml/badge.svg)](https://github.com/ivancarlosti/wificode/actions/workflows/sync-qifi-content.yml)  
 [![pages-build-deployment](https://github.com/ivancarlosti/wificode/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/ivancarlosti/wificode/actions/workflows/pages/pages-build-deployment)
+<!-- endbuttons -->
 
 ## Inspiration
 1. Project inspired by [qifi](https://github.com/evgeni/qifi/), license preserved.
@@ -24,6 +26,7 @@ WiFi Code is a fully browser-based site for generating QR codes
 ## Usage
 1. Open your `Pages` repository URL in a browser.
 
+<!-- footer -->
 ---
 
 ## 🧑‍💻 Consulting and technical support
