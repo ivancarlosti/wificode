@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,238 +15,237 @@
 <link rel="manifest" href="https://wifi.git.icc.gg/manifest.json">
 <link rel="stylesheet" type="text/css" media="all" href="https://wifi.git.icc.gg/bootstrap/dist/css/bootstrap.min.css">
 
+<!-- Sticky Footer CSS -->
 <style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   padding-top: 60px; /* To avoid overlap with topbar */
 }
-.footer {
+.main-content {
+  flex: 1 0 auto;
+}
+footer.footer {
+  margin-top: auto;
+  background: #f8f9fa;
   padding: 1rem 0;
-  background-color: #f8f9fa;
+  text-align: center;
+  color: #999;
+  width: 100%;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+}
+footer.footer a {
+  color: #333;
+  text-decoration: underline;
+  margin: 0 0.5em;
 }
 </style>
 </head>
 
-<body class="d-flex flex-column h-100">
-
-<!-- Main container: flex-grow-1 ensures footer stays at bottom when content is short -->
-<div class="container flex-grow-1">
-
-<section id="generator">
-  <div class="page-header"><h1 id="title">WiFi no QR</h1></div>
-  <div id="history"></div>
-  
-  <form id="form">
-    <div class="form-group has-feedback">
-      <label for="ssid" class="control-label">SSID</label>
-      <div class="input-group">
-        <span id="basic-addon-ssid" class="input-group-addon"><i class="glyphicon glyphicon-signal"></i></span>
-        <input type="text" id="ssid" name="ssid" class="form-control" placeholder="SSID" aria-describedby="basic-addon-ssid" required>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="enc" class="control-label">Encryption</label>
-      <div class="input-group">
-        <select name="enc" id="enc" class="form-control">
-          <option value="WPA">WPA/WPA2/WPA3</option>
-          <option value="WEP">WEP</option>
-          <option value="nopass">None</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group has-feedback" id="key-p">
-      <label class="control-label">Key</label>
-      <div class="input-group">
-        <span id="basic-addon1" class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        <input type="password" id="key" name="key" class="form-control" placeholder="key" aria-describedby="basic-addon1" required>
-        <span class="input-group-btn"><button class="btn btn-default" type="button" id="display-key"><i class="glyphicon glyphicon-eye-open" id="display-key-icon"></i></button></span>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="pull-left control-label" for="hidden">Hidden</label>
-      <div class="input-group">
-        <input type="checkbox" name="hidden" id="hidden" data-toggle="tooltip" title="Is your SSID hidden?">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <button id="generate" class="btn btn-primary">Generate!</button>
-      <button id="save" type="button" class="btn" data-toggle="tooltip" title="Save the credentials for the WiFi in HTML5 localStorage for later use.">Save!</button>
-      <a href="#" id="export" class="btn" target="_blank" data-toggle="tooltip" title="Export the QR code as a PNG.">Export!</a>
-      <a href="javascript:window.print()" id="print" class="btn" data-toggle="tooltip" title="Print the QR code.">Print!</a>
-    </div>
-  </form>
-
-  <h1 id="showssid">SSID: none</h1>
-  <h1 id="showkey">Passphrase: none</h1>
-  <div id="qrcode"></div>
-</section>
-
-<section id="about">
-  <div class="page-header"><h3 class="anchor">How-to</h3></div>
-  <p>Fill the form with related WiFi data and press <i>Generate!</i> button. Your browser will generate a QR Code on your screen. You can export it as a PNG image or print it.</p>
-  <p>If you use the <i>Save!</i> button to store a code, the data is stored in HTML5 localStorage and is never transmitted to the server.</p>
-</section>
-
-</div> <!-- end .container -->
-
-<!-- Sticky footer -->
-<footer class="footer mt-auto">
-  <div class="container text-center">
-    <span style="color: #999999;">
-      <a href="https://icc.gg/privacidade" target="_blank">Privacy Policy</a> | 
-      <a href="https://icc.gg/termos" target="_blank">Terms of Use</a>
-    </span>
+<body>
+  <div class="main-content container">
+    <section id="generator">
+      <div class="page-header"><h1 id="title">WiFi no QR</h1></div>
+      <div id="history"></div>
+      <form id="form">
+        <div class="form-group has-feedback">
+          <label for="ssid" class="control-label">SSID</label>
+          <div class="input-group">
+            <span id="basic-addon-ssid" class="input-group-addon"><i class="glyphicon glyphicon-signal"></i></span>
+            <input type="text" id="ssid" name="ssid" class="form-control" placeholder="SSID" aria-describedby="basic-addon-ssid" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="enc" class="control-label">Encryption</label>
+          <div class="input-group">
+            <select name="enc" id="enc" class="form-control">
+              <option value="WPA">WPA/WPA2/WPA3</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass">None</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group has-feedback" id="key-p">
+          <label class="control-label">Key</label>
+          <div class="input-group">
+            <span id="basic-addon1" class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input type="password" id="key" name="key" class="form-control" placeholder="key" aria-describedby="basic-addon1" required>
+            <span class="input-group-btn"><button class="btn btn-default" type="button" id="display-key"><i class="glyphicon glyphicon-eye-open" id="display-key-icon"></i></button></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="pull-left control-label" for="hidden">Hidden</label>
+          <div class="input-group">
+            <input type="checkbox" name="hidden" id="hidden" data-toggle="tooltip" title="Is your SSID hidden?">
+          </div>
+        </div>
+        <div class="form-group">
+          <button id="generate" class="btn btn-primary">Generate!</button>
+          <button id="save" type="button" class="btn" data-toggle="tooltip" title="Save the credentials for the WiFi in HTML5 localStorage for later use.">Save!</button>
+          <a href="#" id="export" class="btn" target="_blank" data-toggle="tooltip" title="Export the QR code as a PNG.">Export!</a>
+          <a href="javascript:window.print()" id="print" class="btn" data-toggle="tooltip" title="Print the QR code.">Print!</a>
+        </div>
+      </form>
+      <h1 id="showssid">SSID: none</h1>
+      <h1 id="showkey">Passphrase: none</h1>
+      <div id="qrcode"></div>
+    </section>
+    <section id="about">
+      <div class="page-header"><h3 class="anchor">How-to</h3></div>
+      <p>Fill the form with related WiFi data and press <i>Generate!</i> button. Your browser will generate a QR Code on your screen. You can export it as a PNG image or print it.</p>
+      <p>If you use the <i>Save!</i> button to store a code, the data is stored in HTML5 localStorage and is never transmitted to the server.</p>
+    </section>
   </div>
-</footer>
+  <footer class="footer">
+    <div class="container">
+      <span>
+        <a href="https://icc.gg/privacidade" target="_blank">Privacy Policy</a> |
+        <a href="https://icc.gg/termos" target="_blank">Terms of Use</a>
+      </span>
+    </div>
+  </footer>
 
-<!-- Scripts -->
-<script src="https://wifi.git.icc.gg/jquery/jquery-3.5.1.slim.min.js"></script>
-<script src="https://wifi.git.icc.gg/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="https://wifi.git.icc.gg/jquery-qrcode/jquery.qrcode.min.js"></script>
-<script src="https://wifi.git.icc.gg/jquery.storage.js/jquery.storage.js"></script>
-
-<script type="text/javascript">
-function escape_string (string) {
-  var to_escape = ['\\', ';', ',', ':', '"'];
-  var output = "";
-  for (var i=0; i<string.length; i++) {
-    if($.inArray(string[i], to_escape) != -1) {
-      output += '\\'+string[i];
+  <script src="https://wifi.git.icc.gg/jquery/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://wifi.git.icc.gg/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="https://wifi.git.icc.gg/jquery-qrcode/jquery.qrcode.min.js"></script>
+  <script src="https://wifi.git.icc.gg/jquery.storage.js/jquery.storage.js"></script>
+  <script type="text/javascript">
+  function escape_string (string) {
+    var to_escape = ['\\', ';', ',', ':', '"'];
+    var output = "";
+    for (var i=0; i<string.length; i++) {
+      if($.inArray(string[i], to_escape) != -1) {
+        output += '\\'+string[i];
+      } else {
+        output += string[i];
+      }
+    }
+    return output;
+  }
+  function generate () {
+    var ssid = $('#ssid').val();
+    var hidden = $('#hidden').is(':checked');
+    var enc = $('#enc').val();
+    var key = (enc != 'nopass') ? $('#key').val() : '';
+    
+    if (enc != 'nopass') {
+      $('#showkey').text(enc+' Passphrase: '+key);
     } else {
-      output += string[i];
+      $('#showkey').text('');
+    }
+
+    var qrstring = 'WIFI:S:'+escape_string(ssid)+';T:'+enc+';P:'+escape_string(key)+';';
+    if (hidden) qrstring += 'H:true';
+    qrstring += ';';
+
+    $('#qrcode').empty();
+    $('#qrcode').qrcode(qrstring);
+    $('#showssid').text('SSID: '+ssid);
+    $('#save').show();
+    $('#print').css('display', 'inline-block');
+
+    var canvas = $('#qrcode canvas');
+    if (canvas.length == 1) {
+      var data = canvas[0].toDataURL('image/png');
+      var e = $('#export');
+      e.attr('href', data);
+      e.attr('download', ssid+'-qrcode.png');
+      e.css('display', 'inline-block');
     }
   }
-  return output;
-};
-
-function generate () {
-  var ssid = $('#ssid').val();
-  var hidden = $('#hidden').is(':checked');
-  var enc = $('#enc').val();
-  var key = (enc != 'nopass') ? $('#key').val() : '';
-  
-  if (enc != 'nopass') {
-    $('#showkey').text(enc+' Passphrase: '+key);
-  } else {
-    $('#showkey').text('');
+  function save () {
+    var ssid = $('#ssid').val();
+    if (!ssid) return;
+    var hidden = $('#hidden').is(':checked');
+    var enc = $('#enc').val();
+    var key = $('#key').val();
+    var storage = $.localStorage('qificodes');
+    if (!storage) storage = {};
+    storage[ssid] = {'hidden': hidden, 'enc': enc, 'key': key};
+    $.localStorage('qificodes', storage);
+    loadhistory();
   }
-
-  var qrstring = 'WIFI:S:'+escape_string(ssid)+';T:'+enc+';P:'+escape_string(key)+';';
-  if (hidden) qrstring += 'H:true';
-  qrstring += ';';
-
-  $('#qrcode').empty();
-  $('#qrcode').qrcode(qrstring);
-  $('#showssid').text('SSID: '+ssid);
-  $('#save').show();
-  $('#print').css('display', 'inline-block');
-
-  var canvas = $('#qrcode canvas');
-  if (canvas.length == 1) {
-    var data = canvas[0].toDataURL('image/png');
-    var e = $('#export');
-    e.attr('href', data);
-    e.attr('download', ssid+'-qrcode.png');
-    e.css('display', 'inline-block');
-  }
-};
-
-function save () {
-  var ssid = $('#ssid').val();
-  if (!ssid) return;
-  var hidden = $('#hidden').is(':checked');
-  var enc = $('#enc').val();
-  var key = $('#key').val();
-  var storage = $.localStorage('qificodes');
-  if (!storage) storage = {};
-  storage[ssid] = {'hidden': hidden, 'enc': enc, 'key': key};
-  $.localStorage('qificodes', storage);
-  loadhistory();
-};
-
-function load(ssid) {
-  var storage = $.localStorage('qificodes');
-  if (ssid in storage) {
-    $('#ssid').val(ssid);
-    $('#enc').val(storage[ssid]['enc']);
-    $('#key').val(storage[ssid]['key']);
-    $('#hidden').prop('checked', storage[ssid]['hidden']);
-    generate();
-  }
-};
-
-function loadhistory () {
-  var storage = $.localStorage('qificodes');
-  if (storage) {
-    var history = $('#history-drop ul.dropdown-menu');
-    var ssids = Object.keys(storage);
-    history.empty();
-    for (var i=0; i<ssids.length; i++) {
-      history.append('<li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="history-item">'+ssids[i]+'</a></li>');
+  function load(ssid) {
+    var storage = $.localStorage('qificodes');
+    if (ssid in storage) {
+      $('#ssid').val(ssid);
+      $('#enc').val(storage[ssid]['enc']);
+      $('#key').val(storage[ssid]['key']);
+      $('#hidden').prop('checked', storage[ssid]['hidden']);
+      generate();
     }
-    history.append('<li role="presentation" class="divider"></li>');
-    history.append('<li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="history-clear">clear history</a></li>');
-    history.on('click', 'a.history-item', function(e) {
-      e.preventDefault();
-      load($(this).text());
+  }
+  function loadhistory () {
+    var storage = $.localStorage('qificodes');
+    if (storage) {
+      var history = $('#history-drop ul.dropdown-menu');
+      var ssids = Object.keys(storage);
+      history.empty();
+      for (var i=0; i<ssids.length; i++) {
+        history.append('<li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="history-item">'+ssids[i]+'</a></li>');
+      }
+      history.append('<li role="presentation" class="divider"></li>');
+      history.append('<li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="history-clear">clear history</a></li>');
+      history.on('click', 'a.history-item', function(e) {
+        e.preventDefault();
+        load($(this).text());
+      });
+      history.on('click', 'a.history-clear', function(e) {
+        e.preventDefault();
+        clearhistory();
+      });
+      $('#history-drop').show();
+    }
+  }
+  function clearhistory () {
+    $.localStorage('qificodes', null);
+    $('#history-drop').hide();
+  }
+  $(document).ready(function(){
+    $('#form').submit(function() {
+      generate();
+      return false;
     });
-    history.on('click', 'a.history-clear', function(e) {
-      e.preventDefault();
-      clearhistory();
+    $('#save').click(function() { save(); });
+    $('#display-key').click(function() {
+      var $key = $("#key");
+      if ($key.attr('type') === 'password') {
+        $key.attr('type', 'text');
+        $("#display-key-icon").attr("class", "glyphicon glyphicon-eye-close");
+      } else {
+        $key.attr('type', 'password');
+        $("#display-key-icon").attr("class", "glyphicon glyphicon-eye-open");
+      }
     });
-    $('#history-drop').show();
+    $('#enc').change(function() {
+      if($(this).val() != 'nopass') {
+        $('#key-p').show();
+        $('#key').attr('required','required');
+      }
+      else {
+        $('#key-p').hide();
+        $('#key').removeAttr('required');
+      }
+    });
+    $('#form').tooltip({ selector: "[data-toggle=tooltip]" });
+    loadhistory();
+  });
+  // Service Worker installation
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js', {scope: './'}).then(function() {
+        console.log('[Service Worker] Successfully installed');
+      }).catch(function(error) {
+        console.log('[Service Worker] Installation failed:', error);
+      });
+    });
   }
-};
-
-function clearhistory () {
-  $.localStorage('qificodes', null);
-  $('#history-drop').hide();
-};
-
-$(document).ready(function(){
-  $('#form').submit(function() {
-    generate();
-    return false;
-  });
-  $('#save').click(function() { save(); });
-  $('#display-key').click(function() {
-    var $key = $("#key");
-    if ($key.attr('type') === 'password') {
-      $key.attr('type', 'text');
-      $("#display-key-icon").attr("class", "glyphicon glyphicon-eye-close");
-    } else {
-      $key.attr('type', 'password');
-      $("#display-key-icon").attr("class", "glyphicon glyphicon-eye-open");
-    }
-  });
-  $('#enc').change(function() {
-    if($(this).val() != 'nopass') {
-      $('#key-p').show();
-      $('#key').attr('required','required');
-    }
-    else {
-      $('#key-p').hide();
-      $('#key').removeAttr('required');
-    }
-  });
-  $('#form').tooltip({ selector: "[data-toggle=tooltip]" });
-  loadhistory();
-});
-
-// Service Worker installation
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js', {scope: './'}).then(function() {
-      console.log('[Service Worker] Successfully installed');
-    }).catch(function(error) {
-      console.log('[Service Worker] Installation failed:', error);
-    });
-  });
-}
-</script>
-
+  </script>
 </body>
 </html>
