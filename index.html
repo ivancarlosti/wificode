@@ -8,44 +8,11 @@
 <meta name="author" content="Ivan Carlos">
 <title>WiFi no QR</title>
 
-<!-- CSS imports -->
-<link rel="stylesheet" type="text/css" media="all" href="https://wifi.git.icc.gg/style.css">
-<link rel="stylesheet" type="text/css" media="print" href="https://wifi.git.icc.gg/print.css">
-<link rel="icon" href="https://wifi.git.icc.gg/qifi.png" type="image/x-icon">
-<link rel="manifest" href="https://wifi.git.icc.gg/manifest.json">
-<link rel="stylesheet" type="text/css" media="all" href="https://wifi.git.icc.gg/bootstrap/dist/css/bootstrap.min.css">
-
-<!-- Sticky Footer CSS -->
-<style>
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  padding-top: 60px; /* To avoid overlap with topbar */
-}
-.main-content {
-  flex: 1 0 auto;
-}
-footer.footer {
-  margin-top: auto;
-  background: #f8f9fa;
-  padding: 1rem 0;
-  text-align: center;
-  color: #999;
-  width: 100%;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
-}
-footer.footer a {
-  color: #333;
-  text-decoration: underline;
-  margin: 0 0.5em;
-}
-</style>
+<link rel="stylesheet" type="text/css" media="all" href="style.css">
+<link rel="stylesheet" type="text/css" media="print" href="print.css">
+<link rel="icon" href="qifi.png" type="image/x-icon">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" type="text/css" media="all" href="bootstrap/dist/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -111,10 +78,10 @@ footer.footer a {
     </div>
   </footer>
 
-  <script src="https://wifi.git.icc.gg/jquery/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://wifi.git.icc.gg/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="https://wifi.git.icc.gg/jquery-qrcode/jquery.qrcode.min.js"></script>
-  <script src="https://wifi.git.icc.gg/jquery.storage.js/jquery.storage.js"></script>
+  <script src="jquery/jquery-3.5.1.slim.min.js"></script>
+  <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="jquery-qrcode/jquery.qrcode.min.js"></script>
+  <script src="jquery.storage.js/jquery.storage.js"></script>
   <script type="text/javascript">
   function escape_string (string) {
     var to_escape = ['\\', ';', ',', ':', '"'];
