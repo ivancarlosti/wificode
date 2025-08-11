@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="WiFi no QR is a fully browser-based site for generating QR codes forked to be simplified and best used for newbies.">
-<meta name="author" content="Ivan Carlos">
-<title>WiFi no QR</title>
-
-<link rel="stylesheet" type="text/css" media="all" href="style.css">
-<link rel="stylesheet" type="text/css" media="print" href="print.css">
-<link rel="icon" href="qifi.png" type="image/x-icon">
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" type="text/css" media="all" href="bootstrap/dist/css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="WiFi no QR is a fully browser-based site for generating QR codes forked to be simplified and best used for newbies.">
+  <meta name="author" content="Ivan Carlos">
+  <title>WiFi no QR</title>
+  <link rel="stylesheet" type="text/css" media="all" href="bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" media="all" href="style.css">
+  <link rel="stylesheet" type="text/css" media="print" href="print.css">
+  <link rel="icon" href="qifi.png" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -43,20 +42,22 @@
           <div class="input-group">
             <span id="basic-addon1" class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
             <input type="password" id="key" name="key" class="form-control" placeholder="key" aria-describedby="basic-addon1" required>
-            <span class="input-group-btn"><button class="btn btn-default" type="button" id="display-key"><i class="glyphicon glyphicon-eye-open" id="display-key-icon"></i></button></span>
+            <span class="input-group-btn">
+              <button class="btn" type="button" id="display-key"><i class="glyphicon glyphicon-eye-open" id="display-key-icon"></i></button>
+            </span>
           </div>
         </div>
-        <div class="form-group">
-          <label class="pull-left control-label" for="hidden">Hidden</label>
-          <div class="input-group">
+        <div class="form-group hidden-checkbox-group">
+          <div class="input-group align-items-center">
             <input type="checkbox" name="hidden" id="hidden" data-toggle="tooltip" title="Is your SSID hidden?">
+            <label for="hidden" class="hidden-label">Hidden SSID</label>
           </div>
         </div>
         <div class="form-group">
           <button id="generate" class="btn btn-primary">Generate!</button>
-          <button id="save" type="button" class="btn" data-toggle="tooltip" title="Save the credentials for the WiFi in HTML5 localStorage for later use.">Save!</button>
-          <a href="#" id="export" class="btn" target="_blank" data-toggle="tooltip" title="Export the QR code as a PNG.">Export!</a>
-          <a href="javascript:window.print()" id="print" class="btn" data-toggle="tooltip" title="Print the QR code.">Print!</a>
+          <button id="save" type="button" class="btn">Save!</button>
+          <a href="#" id="export" class="btn" target="_blank">Export!</a>
+          <a href="javascript:window.print()" id="print" class="btn">Print!</a>
         </div>
       </form>
       <h1 id="showssid">SSID: none</h1>
@@ -83,136 +84,136 @@
   <script src="jquery-qrcode/jquery.qrcode.min.js"></script>
   <script src="jquery.storage.js/jquery.storage.js"></script>
   <script type="text/javascript">
-  function escape_string (string) {
-    var to_escape = ['\\', ';', ',', ':', '"'];
-    var output = "";
-    for (var i=0; i<string.length; i++) {
-      if($.inArray(string[i], to_escape) != -1) {
-        output += '\\'+string[i];
+    function escape_string (string) {
+      var to_escape = ['\\', ';', ',', ':', '"'];
+      var output = '';
+      for (var i = 0; i < string.length; i++) {
+        if ($.inArray(string[i], to_escape) != -1) {
+          output += '\\' + string[i];
+        } else {
+          output += string[i];
+        }
+      }
+      return output;
+    }
+    function generate () {
+      var ssid = $('#ssid').val();
+      var hidden = $('#hidden').is(':checked');
+      var enc = $('#enc').val();
+      var key = (enc != 'nopass') ? $('#key').val() : '';
+      if (enc != 'nopass') {
+        $('#showkey').text(enc + ' Passphrase: ' + key);
       } else {
-        output += string[i];
+        $('#showkey').text('');
       }
-    }
-    return output;
-  }
-  function generate () {
-    var ssid = $('#ssid').val();
-    var hidden = $('#hidden').is(':checked');
-    var enc = $('#enc').val();
-    var key = (enc != 'nopass') ? $('#key').val() : '';
-    
-    if (enc != 'nopass') {
-      $('#showkey').text(enc+' Passphrase: '+key);
-    } else {
-      $('#showkey').text('');
+      var qrstring = 'WIFI:S:' + escape_string(ssid) + ';T:' + enc + ';P:' + escape_string(key) + ';';
+      if (hidden) qrstring += 'H:true';
+      qrstring += ';';
+      $('#qrcode').empty();
+      $('#qrcode').qrcode(qrstring);
+      $('#showssid').text('SSID: ' + ssid);
+      $('#save').show();
+      $('#print').css('display', 'inline-block');
+      var canvas = $('#qrcode canvas');
+      if (canvas.length == 1) {
+        var data = canvas[0].toDataURL('image/png');
+        var e = $('#export');
+        e.attr('href', data);
+        e.attr('download', ssid + '-qrcode.png');
+        e.css('display', 'inline-block');
+      }
     }
 
-    var qrstring = 'WIFI:S:'+escape_string(ssid)+';T:'+enc+';P:'+escape_string(key)+';';
-    if (hidden) qrstring += 'H:true';
-    qrstring += ';';
+    function save () {
+      var ssid = $('#ssid').val();
+      if (!ssid) return;
+      var hidden = $('#hidden').is(':checked');
+      var enc = $('#enc').val();
+      var key = $('#key').val();
+      var storage = $.localStorage('qificodes');
+      if (!storage) storage = {};
+      storage[ssid] = { 'hidden': hidden, 'enc': enc, 'key': key };
+      $.localStorage('qificodes', storage);
+      loadhistory();
+    }
 
-    $('#qrcode').empty();
-    $('#qrcode').qrcode(qrstring);
-    $('#showssid').text('SSID: '+ssid);
-    $('#save').show();
-    $('#print').css('display', 'inline-block');
-
-    var canvas = $('#qrcode canvas');
-    if (canvas.length == 1) {
-      var data = canvas[0].toDataURL('image/png');
-      var e = $('#export');
-      e.attr('href', data);
-      e.attr('download', ssid+'-qrcode.png');
-      e.css('display', 'inline-block');
+    function load(ssid) {
+      var storage = $.localStorage('qificodes');
+      if (ssid in storage) {
+        $('#ssid').val(ssid);
+        $('#enc').val(storage[ssid]['enc']);
+        $('#key').val(storage[ssid]['key']);
+        $('#hidden').prop('checked', storage[ssid]['hidden']);
+        generate();
+      }
     }
-  }
-  function save () {
-    var ssid = $('#ssid').val();
-    if (!ssid) return;
-    var hidden = $('#hidden').is(':checked');
-    var enc = $('#enc').val();
-    var key = $('#key').val();
-    var storage = $.localStorage('qificodes');
-    if (!storage) storage = {};
-    storage[ssid] = {'hidden': hidden, 'enc': enc, 'key': key};
-    $.localStorage('qificodes', storage);
-    loadhistory();
-  }
-  function load(ssid) {
-    var storage = $.localStorage('qificodes');
-    if (ssid in storage) {
-      $('#ssid').val(ssid);
-      $('#enc').val(storage[ssid]['enc']);
-      $('#key').val(storage[ssid]['key']);
-      $('#hidden').prop('checked', storage[ssid]['hidden']);
-      generate();
+    function loadhistory () {
+      var storage = $.localStorage('qificodes');
+      if (storage) {
+        var history = $('#history-drop ul.dropdown-menu');
+        var ssids = Object.keys(storage);
+        history.empty();
+        for (var i = 0; i < ssids.length; i++) {
+          history.append('<li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="history-item">' + ssids[i] + '</a></li>');
+        }
+        history.append('<li role="presentation" class="divider"></li>');
+        history.append('<li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="history-clear">clear history</a></li>');
+        history.on('click', 'a.history-item', function(e) {
+          e.preventDefault();
+          load($(this).text());
+        });
+        history.on('click', 'a.history-clear', function(e) {
+          e.preventDefault();
+          clearhistory();
+        });
+        $('#history-drop').show();
+      }
     }
-  }
-  function loadhistory () {
-    var storage = $.localStorage('qificodes');
-    if (storage) {
-      var history = $('#history-drop ul.dropdown-menu');
-      var ssids = Object.keys(storage);
-      history.empty();
-      for (var i=0; i<ssids.length; i++) {
-        history.append('<li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="history-item">'+ssids[i]+'</a></li>');
-      }
-      history.append('<li role="presentation" class="divider"></li>');
-      history.append('<li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="history-clear">clear history</a></li>');
-      history.on('click', 'a.history-item', function(e) {
-        e.preventDefault();
-        load($(this).text());
-      });
-      history.on('click', 'a.history-clear', function(e) {
-        e.preventDefault();
-        clearhistory();
-      });
-      $('#history-drop').show();
+    function clearhistory () {
+      $.localStorage('qificodes', null);
+      $('#history-drop').hide();
     }
-  }
-  function clearhistory () {
-    $.localStorage('qificodes', null);
-    $('#history-drop').hide();
-  }
-  $(document).ready(function(){
-    $('#form').submit(function() {
-      generate();
-      return false;
-    });
-    $('#save').click(function() { save(); });
-    $('#display-key').click(function() {
-      var $key = $("#key");
-      if ($key.attr('type') === 'password') {
-        $key.attr('type', 'text');
-        $("#display-key-icon").attr("class", "glyphicon glyphicon-eye-close");
-      } else {
-        $key.attr('type', 'password');
-        $("#display-key-icon").attr("class", "glyphicon glyphicon-eye-open");
-      }
-    });
-    $('#enc').change(function() {
-      if($(this).val() != 'nopass') {
-        $('#key-p').show();
-        $('#key').attr('required','required');
-      }
-      else {
-        $('#key-p').hide();
-        $('#key').removeAttr('required');
-      }
-    });
-    $('#form').tooltip({ selector: "[data-toggle=tooltip]" });
-    loadhistory();
-  });
-  // Service Worker installation
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js', {scope: './'}).then(function() {
-        console.log('[Service Worker] Successfully installed');
-      }).catch(function(error) {
-        console.log('[Service Worker] Installation failed:', error);
+    $(document).ready(function(){
+      // Hide buttons on load
+      $('#save, #export, #print').hide();
+      $('#form').submit(function() {
+        generate();
+        return false;
       });
+      $('#save').click(function() { save(); });
+      $('#display-key').click(function() {
+        var $key = $("#key");
+        if ($key.attr('type') === 'password') {
+          $key.attr('type', 'text');
+          $("#display-key-icon").attr("class", "glyphicon glyphicon-eye-close");
+        } else {
+          $key.attr('type', 'password');
+          $("#display-key-icon").attr("class", "glyphicon glyphicon-eye-open");
+        }
+      });
+      $('#enc').change(function() {
+        if($(this).val() != 'nopass') {
+          $('#key-p').show();
+          $('#key').attr('required','required');
+        }
+        else {
+          $('#key-p').hide();
+          $('#key').removeAttr('required');
+        }
+      });
+      $('#form').tooltip({ selector: "[data-toggle=tooltip]" });
+      loadhistory();
     });
-  }
+    // Service Worker installation
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js', {scope: './'}).then(function() {
+          console.log('[Service Worker] Successfully installed');
+        }).catch(function(error) {
+          console.log('[Service Worker] Installation failed:', error);
+        });
+      });
+    }
   </script>
 </body>
 </html>
