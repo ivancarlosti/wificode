@@ -1,96 +1,163 @@
-#title,
-#showssid,
-#showkey,
+/* Base body styles */
+body {
+  background: #f8fafb;
+  color: #222;
+  font-family: "Segoe UI", "Roboto", Arial, sans-serif;
+  font-size: 1.04em;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Main container styling */
+.main-content.container {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 14px rgba(60,60,60,0.08);
+  margin: 32px auto 16px auto;
+  max-width: 500px;
+  padding: 28px 24px 36px 24px;
+}
+
+#title {
+  letter-spacing: .02em;
+  font-weight: 700;
+  color: #1379dc;
+}
+
+/* Form tweaks and spacing */
+form .form-group {
+  margin-bottom: 18px;
+}
+
+label.control-label {
+  color: #23395d;
+  font-weight: 500;
+}
+
+input[type="text"], 
+input[type="password"], 
+select.form-control {
+  border-radius: 5px !important;
+  outline: none;
+  border: 1px solid #bcdcf1;
+  box-shadow: none !important;
+  padding: 10px 12px;
+  transition: border 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+select.form-control:focus {
+  border-color: #1379dc;
+}
+
+.input-group-addon, .input-group-btn {
+  background: #e7f1fc;
+  border: 1px solid #bcdcf1;
+  color: #378ada;
+  border-radius: 5px 0 0 5px !important;
+}
+
+.input-group-btn button.btn {
+  border-left: none !important;
+}
+
+input[type="checkbox"] {
+  accent-color: #1379dc;
+  width: 18px;
+  height: 18px;
+}
+
+button.btn, a.btn {
+  border-radius: 5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  min-width: 95px;
+}
+
+button#generate.btn-primary {
+  background: linear-gradient(90deg, #1379dc 54%, #1fa3fe 100%);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+}
+#save.btn, #export.btn, #print.btn {
+  background: #f0f4f8;
+  color: #1379dc;
+  border: 1px solid #bcdcf1;
+}
+
+#save.btn:hover, #export.btn:hover, #print.btn:hover {
+  background: #e6f0fc;
+  color: #105a95;
+  border-color: #98c9ec;
+}
+
+#generate.btn-primary:hover {
+  background: linear-gradient(90deg, #148be3 54%, #1fc4fe 100%);
+}
+
+#showssid, #showkey {
+  font-size: 1.25em;
+  color: #0865ba;
+  margin: 24px 0 6px 0;
+  font-weight: 500;
+  word-break: break-all;
+}
+
 #qrcode {
-    text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 0;
 }
 
-#about,
-#contact,
-#generator {
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
+/* About section */
+#about {
+  margin: 38px 0 0 0;
+  color: #41506b;
+}
+#about .page-header {
+  border: none;
+  margin-top: 10px;
 }
 
-#export,
-#print {
-    display: none;
+/* Footer styling */
+footer.footer {
+  color: #8fa3b3;
+  background: transparent;
+  padding: 18px 0;
+  font-size: 0.98em;
+  text-align: center;
 }
-
-#showssid,
-#showkey {
-    display: none;
+footer .container a {
+  color: #1379dc;
+  text-decoration: none;
 }
-
-#save {
-    display: none;
-}
-
-#history-drop {
-    display: none;
-}
-
-#ssid,
-#key {
-    width: 100%;
-}
-
-#hidden {
-    margin: 0px 0px 5px 5px;
-}
-
-#qrcode canvas {
-    padding: 2em;
-    image-rendering: crisp-edges;
-}
-
-.footer {
-    text-align: center;
-    margin-top: 50px;
-}
-.footer p {
-    margin-bottom: 0;
-    color: #777;
-}
-.footer-links {
-    margin: 10px 0;
-}
-.footer-links li {
-    display: inline;
-    padding: 0 2px;
-}
-.footer-links li:first-child {
-    padding-left: 0;
-}
-
-.anchor {
-  padding-top: 60px;
-  margin-top: -60px;
-}
-
-img {
-    border: 0;
-}
-
-
-@media (min-width: 768px) and (max-width: 979px) {
-    #about,
-    #contact,
-    #generator {
-        width: 60%;
-    }
+footer .container a:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 767px) {
-    #about,
-    #contact,
-    #generator {
-        width: 80%;
-    }
-
-    .footer {
-        margin-left: -20px;
-        margin-right: -20px;
-    }
+  .main-content.container {
+    max-width: 100%;
+    border-radius: 0;
+    padding: 16px 5vw 32px 5vw;
+    margin-top: 6vw;
+  }
+  #title {
+    font-size: 2em;
+    margin-top: 8px;
+    text-align: center;
+  }
+  #about {
+    margin: 26px 0 0 0;
+  }
 }
+
+::-webkit-input-placeholder { color: #b9bbbe; font-weight: 300; }
+::-moz-placeholder { color: #b9bbbe; font-weight: 300; }
+:-ms-input-placeholder { color: #b9bbbe; font-weight: 300; }
+::placeholder { color: #b9bbbe; font-weight: 300; }
