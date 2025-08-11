@@ -1,113 +1,100 @@
-body {
-  background: #f8fafb;
-  color: #222;
-  font-family: sans-serif;
-  margin: 0;
+#title,
+#showssid,
+#showkey,
+#qrcode {
+    text-align: center;
 }
 
-.container {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  max-width: 400px;
-  margin: 32px auto;
-  padding: 24px 18px 32px 18px;
+#about,
+#contact,
+#generator {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-h1 {
-  color: #1379dc;
-  font-size: 1.7em;
-  text-align: center;
+#export,
+#print {
+    display: none;
 }
 
-form label {
-  display: block;
-  margin-bottom: 15px;
-  font-weight: 500;
+#showssid,
+#showkey {
+    display: none;
 }
 
-input[type="text"],
-input[type="password"],
-select {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 9px 10px;
-  margin-top: 5px;
-  border: 1px solid #bcdcf1;
-  border-radius: 4px;
-  font-size: 1em;
+#save {
+    display: none;
 }
 
-#display-key {
-  background: #e7f1fc;
-  border: 1px solid #bcdcf1;
-  border-left: none;
-  border-radius: 0 4px 4px 0;
-  cursor: pointer;
-  font-size: 1.1em;
-  margin-left: -3px;
-  padding: 7px 12px;
+#history-drop {
+    display: none;
 }
 
-.checkbox-line {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 18px;
-  font-size: 1em;
+#ssid,
+#key {
+    width: 100%;
 }
 
-input[type="checkbox"]#hidden {
-  accent-color: #1379dc;
-  width: 18px;
-  height: 18px;
+
+#hidden {
+    margin: 0px 0px 5px 5px;
 }
 
-.buttons {
-  margin-top: 10px;
+#qrcode canvas {
+    padding: 2em;
+    image-rendering: crisp-edges;
 }
 
-.buttons button,
-.buttons a {
-  display: inline-block;
-  padding: 8px 16px;
-  margin-right: 8px;
-  margin-bottom: 7px;
-  border-radius: 4px;
-  border: none;
-  background: #f0f4f8;
-  color: #1379dc;
-  font-weight: 500;
-  text-decoration: none;
-  font-size: 1em;
-  text-align: center;
+.footer {
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 70px;
+    border-top: 1px solid #e5e5e5;
+    background-color: #f5f5f5;
+}
+.footer p {
+    margin-bottom: 0;
+    color: #777;
+}
+.footer-links {
+    margin: 10px 0;
+}
+.footer-links li {
+    display: inline;
+    padding: 0 2px;
+}
+.footer-links li:first-child {
+    padding-left: 0;
 }
 
-#generate {
-  background: linear-gradient(90deg, #1379dc, #1fa3fe);
-  color: #fff;
-  font-weight: 600;
+.anchor {
+  padding-top: 60px;
+  margin-top: -60px;
 }
 
-#showssid, #showkey {
-  margin-top: 20px;
-  font-weight: 500;
-  color: #0865ba;
+img {
+    border: 0;
 }
 
-footer {
-  text-align: center;
-  font-size: 0.96em;
-  color: #8fa3b3;
-  margin: 24px 0 12px 0;
+
+@media (min-width: 768px) and (max-width: 979px) {
+    #about,
+    #contact,
+    #generator {
+        width: 60%;
+    }
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .container {
-    max-width: 100%;
-    border-radius: 0;
-    padding: 15px 4vw 28px 4vw;
-    margin: 12px 0;
-  }
+@media (max-width: 767px) {
+    #about,
+    #contact,
+    #generator {
+        width: 80%;
+    }
+
+    .footer {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
 }
