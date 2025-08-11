@@ -36,7 +36,6 @@
     width: 100%;
 }
 
-
 #hidden {
     margin: 0px 0px 5px 5px;
 }
@@ -48,10 +47,7 @@
 
 .footer {
     text-align: center;
-    padding: 30px 0;
-    margin-top: 70px;
-    border-top: 1px solid #e5e5e5;
-    background-color: #f5f5f5;
+    margin-top: 50px;
 }
 .footer p {
     margin-bottom: 0;
