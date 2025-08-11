@@ -1,4 +1,3 @@
-/* Base body styles */
 body {
   background: #f8fafb;
   color: #222;
@@ -8,7 +7,6 @@ body {
   min-height: 100vh;
 }
 
-/* Main container styling */
 .main-content.container {
   background: #fff;
   border-radius: 10px;
@@ -58,14 +56,32 @@ select.form-control:focus {
   border-radius: 5px 0 0 5px !important;
 }
 
-.input-group-btn button.btn {
-  border-left: none !important;
+.input-group-btn button#display-key {
+  border-radius: 0 5px 5px 0 !important;
+  background: #e7f1fc;
+  border: 1px solid #bcdcf1;
+  color: #378ada;
+  padding: 0 16px;
+  height: 38px;
+  box-shadow: none;
+  border-left: none;
+  outline: none;
+  transition: background 0.2s;
 }
 
-input[type="checkbox"] {
-  accent-color: #1379dc;
-  width: 18px;
-  height: 18px;
+.input-group-btn button#display-key:focus,
+.input-group-btn button#display-key:hover {
+  background: #d7eaff;
+  color: #1379dc;
+}
+
+#display-key-icon {
+  font-size: 1.25em;
+  vertical-align: middle;
+}
+
+.input-group-btn button.btn {
+  border-left: none !important;
 }
 
 button.btn, a.btn {
@@ -87,6 +103,7 @@ button#generate.btn-primary {
   background: #f0f4f8;
   color: #1379dc;
   border: 1px solid #bcdcf1;
+  display: none; /* Hide these buttons until QR is generated */
 }
 
 #save.btn:hover, #export.btn:hover, #print.btn:hover {
@@ -112,6 +129,28 @@ button#generate.btn-primary {
   align-items: center;
   justify-content: center;
   padding: 22px 0;
+}
+
+/* Improved Checkbox Styles */
+.hidden-checkbox-group .input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type='checkbox']#hidden {
+  accent-color: #1379dc;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+label.hidden-label {
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #22395d;
+  cursor: pointer;
+  font-size: 1em;
 }
 
 /* About section */
