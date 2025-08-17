@@ -1,5 +1,4 @@
 name: Sync QiFi Content to Main
-
 on:
   workflow_dispatch:
   schedule:
@@ -11,73 +10,77 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
+      actions: write
     steps:
-    - name: Checkout YOUR repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        ref: main
-        repository: ivancarlosti/wificode
-        clean: true
-        persist-credentials: true
+      - name: Checkout YOUR repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+          repository: ivancarlosti/wificode
+          clean: true
+          persist-credentials: true
 
-    - name: Reset Git remote
-      run: |
-        git remote remove origin || true
-        git remote add origin https://github.com/ivancarlosti/wificode.git
-        git remote -v
+      - name: Reset Git remote
+        run: |
+          git remote remove origin || true
+          git remote add origin https://github.com/ivancarlosti/wificode.git
+          git remote -v
 
-    - name: Download QiFi content
-      run: |
-        # Create temp folder OUTSIDE repository
-        mkdir -p /tmp/qifi_temp
-        cd /tmp/qifi_temp
-        git clone --recurse-submodules --branch gh-pages --depth 1 https://github.com/evgeni/qifi.git
-        echo "=== Copying files ==="
-        rsync -av \
-          --exclude='.github' \
-          --exclude='.git' \
-          --exclude='favicon.ico' \
-          --exclude='index.html' \
-          --exclude='style.css' \
-          --exclude='manifest.json' \
-          --exclude='README.md' \
-          --exclude='LICENSE' \
-          --exclude='CNAME' \
-          --exclude='robots.txt' \
-          --exclude='google41ac8389595913a0.html' \
-          qifi/ "$GITHUB_WORKSPACE/"
-        echo "=== Files copied to repository ==="
-        ls -la "$GITHUB_WORKSPACE"
+      - name: Download QiFi content
+        run: |
+          # Create temp folder OUTSIDE repository
+          mkdir -p /tmp/qifi_temp
+          cd /tmp/qifi_temp
+          git clone --recurse-submodules --branch gh-pages --depth 1 https://github.com/evgeni/qifi.git
+          echo "= Copying files ="
+          rsync -av \
+            --exclude='.github' \
+            --exclude='.git' \
+            --exclude='favicon.ico' \
+            --exclude='index.html' \
+            --exclude='style.css' \
+            --exclude='manifest.json' \
+            --exclude='README.md' \
+            --exclude='LICENSE' \
+            --exclude='CNAME' \
+            --exclude='robots.txt' \
+            --exclude='google41ac8389595913a0.html' \
+            qifi/ "$GITHUB_WORKSPACE/"
+          echo "= Files copied to repository ="
+          ls -la "$GITHUB_WORKSPACE"
 
-    - name: Cleanup temp files
-      run: |
-        echo "=== Cleaning up ==="
-        rm -rf /tmp/qifi_temp
-        echo "Temp folder contents:"
-        ls -la /tmp/qifi_temp 2>/dev/null || echo "Temp folder removed"
+      - name: Cleanup temp files
+        run: |
+          echo "= Cleaning up ="
+          rm -rf /tmp/qifi_temp
+          echo "Temp folder contents:"
+          ls -la /tmp/qifi_temp 2>/dev/null || echo "Temp folder removed"
 
-    - name: Commit changes
-      run: |
-        cd "$GITHUB_WORKSPACE"
-        git config --global user.email "ivan@ivancarlos.com.br"
-        git config --global user.name "ivancarlosti"
-        git add .
-        
-        if [ -n "$(git status --porcelain)" ]; then
-          git commit -m "Sync QiFi content [▶️]"
-          echo "=== Commit details ==="
-          git show --stat
-        else
-          echo "No changes to commit"
-          exit 0
-        fi
+      - name: Commit changes
+        id: commit_step
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          git config --global user.email "ivan@ivancarlos.com.br"
+          git config --global user.name "ivancarlosti"
+          git add .
 
-    - name: Push changes
-      run: |
-        cd "$GITHUB_WORKSPACE"
-        git push \
-          https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/ivancarlosti/wificode.git \
-          HEAD:main
-        echo "=== Push successful ==="
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Sync QiFi content [▶️]"
+            echo "= Commit details ="
+            git show --stat
+            # Push here so we only dispatch if push succeeded
+            git push https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/ivancarlosti/wificode.git HEAD:main
+            echo "= Push successful ="
+            echo "changes_committed=true" >> $GITHUB_OUTPUT
+          else
+            echo "No changes to commit"
+            echo "changes_committed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Trigger Build, Push, Publish (release_build.yml)
+        if: steps.commit_step.outputs.changes_committed == 'true'
+        uses: peter-evans/workflow-dispatch@v2
+        with:
+          workflow: release_build.yml
+          ref: main
