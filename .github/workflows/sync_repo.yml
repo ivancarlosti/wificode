@@ -1,9 +1,9 @@
-name: Sync QiFi Content to Main
+name: Sync Repo
+
 on:
   workflow_dispatch:
   schedule:
-    # Runs at 00:28 and 12:28 UTC every day
-    - cron: '28 */12 * * *'
+    - cron: '38 */12 * * *'
 
 jobs:
   sync:
