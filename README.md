@@ -1,6 +1,10 @@
 # WiFi Code
 WiFi Code is a fully browser-based site for generating QR codes
 
+<!-- buttons -->
+
+<!-- endbuttons -->
+
 ## Inspiration
 1. Project inspired by [qifi](https://github.com/evgeni/qifi/), license preserved.
 
