@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="WiFi Code is a fully browser-based site for generating QR codes">
+    <meta name="author" content="Ivan Carlos">
+    <title>Wifi no QR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="all" href="style.css">
+    <link rel="stylesheet" type="text/css" media="print" href="print.css">
+    <link rel="icon" href="qifi.png" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">
+    <link rel="canonical" href="https://wifi.git.icc.gg/">
+    <!-- Bootstrap removed -->
+</head>
+
+<body>
+    <div class="container">
+        <section id="generator" class="card">
+            <header class="page-header">
+                <h1 id="title">Wifi no QR</h1>
+                <p class="subtitle">
+                    Enter your WiFi details below and click <strong>Generate</strong>. The QR Code is created locally in
+                    your browser—no data is sent to any server.
+                </p>
+            </header>
+
+            <!-- History Dropdown Placeholder (Hidden by default) -->
+            <div id="history-drop" class="history-dropdown" style="display:none;">
+                <button class="history-btn">Load History ▼</button>
+                <ul class="dropdown-menu"></ul>
+            </div>
+
+            <form id="form">
+                <div class="form-group">
+                    <label for="ssid">SSID (Network Name)</label>
+                    <div class="input-wrapper">
+                        <!-- Signal Icon -->
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                            <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                            <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                        </svg>
+                        <input type="text" id="ssid" name="ssid" placeholder="MyWiFiNetwork" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="enc">Encryption</label>
+                    <div class="input-wrapper">
+                        <select name="enc" id="enc">
+                            <option value="WPA">WPA/WPA2/WPA3</option>
+                            <option value="WEP">WEP</option>
+                            <option value="nopass">None</option>
+                        </select>
+                        <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="form-group" id="key-p">
+                    <label for="key">Password</label>
+                    <div class="input-wrapper">
+                        <!-- Lock Icon -->
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <input type="password" id="key" name="key" placeholder="Wireless Key" required>
+                        <button type="button" id="display-key" class="icon-btn">
+                            <!-- Eye Icon -->
+                            <svg id="display-key-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" name="hidden" id="hidden">
+                    <label for="hidden">Hidden Network</label>
+                </div>
+
+                <div class="button-group">
+                    <button id="generate" class="btn btn-primary">Generate QR Code</button>
+                    <button id="save" type="button" class="btn btn-secondary"
+                        title="Save credentials locally">Save</button>
+                    <a href="#" id="export" class="btn btn-outline" target="_blank" title="Download PNG">Download
+                        PNG</a>
+                    <a href="javascript:window.print()" id="print" class="btn btn-outline" title="Print">Print</a>
+                </div>
+            </form>
+
+            <div id="result-area">
+                <h2 id="showssid">SSID: none</h2>
+                <h3 id="showkey">Passphrase: none</h3>
+                <div id="qrcode"></div>
+            </div>
+
+            <footer>
+                <p><a href="https://icc.gg/privacidade" target="_blank">Privacy Policy</a> • <a
+                        href="https://icc.gg/termos" target="_blank">Terms and Conditions</a></p>
+            </footer>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="jquery-qrcode/jquery.qrcode.min.js"></script>
+    <script src="jquery.storage.js/jquery.storage.js"></script>
+
+    <!-- Original Logic Preserved -->
+    <script type="text/javascript">
+        // Prevent default form submission globally
+        document.getElementById('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+
+        function escape_string(string) {
+            var to_escape = ['\\', ';', ',', ':', '"'];
+            var hex_only = /^[0-9a-f]+$/i;
+            var output = "";
+            for (var i = 0; i < string.length; i++) {
+                if ($.inArray(string[i], to_escape) != -1) {
+                    output += '\\' + string[i];
+                }
+                else {
+                    output += string[i];
+                }
+            }
+            return output;
+        };
+
+        function generate() {
+            var ssid = $('#ssid').val();
+            var hidden = $('#hidden').is(':checked');
+            var enc = $('#enc').val();
+            if (enc != 'nopass') {
+                var key = $('#key').val();
+                $('#showkey').text(enc + ' Passphrase: ' + key);
+            } else {
+                var key = '';
+                $('#showkey').text('');
+            }
+            // https://github.com/zxing/zxing/wiki/Barcode-Contents#wi-fi-network-config-android-ios-11
+            var qrstring = 'WIFI:S:' + escape_string(ssid) + ';T:' + enc + ';P:' + escape_string(key) + ';';
+            if (hidden) {
+                qrstring += 'H:true';
+            }
+            qrstring += ';';
+            $('#qrcode').empty();
+            $('#qrcode').qrcode(qrstring);
+            $('#showssid').text('SSID: ' + ssid);
+            $('#save').show();
+            $('#print').css('display', 'inline-block');
+            $('#showssid, #showkey').show(); // Show result text
+
+            var canvas = $('#qrcode canvas');
+            if (canvas.length == 1) {
+                var data = canvas[0].toDataURL('image/png');
+                var e = $('#export');
+                e.attr('href', data);
+                e.attr('download', ssid + '-qrcode.png');
+                e.css('display', 'inline-block');
+            }
+        };
+
+        function save() {
+            var ssid = $('#ssid').val();
+            if (!ssid) return;
+            var hidden = $('#hidden').is(':checked');
+            var enc = $('#enc').val();
+            var key = $('#key').val();
+            var storage = $.localStorage('qificodes');
+            if (!storage) storage = {};
+            storage[ssid] = { 'hidden': hidden, 'enc': enc, 'key': key };
+            $.localStorage('qificodes', storage);
+            loadhistory();
+        };
+
+        function load(ssid) {
+            var storage = $.localStorage('qificodes');
+            if (ssid in storage) {
+                $('#ssid').val(ssid);
+                $('#enc').val(storage[ssid]['enc']);
+                $('#key').val(storage[ssid]['key']);
+                $('#hidden').prop('checked', storage[ssid]['hidden']);
+                generate();
+            }
+        };
+
+        function loadhistory() {
+            var storage = $.localStorage('qificodes');
+            if (storage) {
+                var history = $('#history-drop ul.dropdown-menu');
+                var ssids = Object.keys(storage);
+                history.empty();
+                for (var i = 0; i < ssids.length; i++) {
+                    history.append('<li><a href="#" class="history-item">' + ssids[i] + '</a></li>');
+                }
+                history.append('<li class="divider"></li>');
+                history.append('<li><a href="#" class="history-clear">clear history</a></li>');
+
+                history.on('click', 'a.history-item', function (e) {
+                    e.preventDefault();
+                    load($(this).text());
+                });
+                history.on('click', 'a.history-clear', function (e) {
+                    e.preventDefault();
+                    clearhistory();
+                });
+                $('#history-drop').show();
+            }
+        };
+
+        function clearhistory() {
+            $.localStorage('qificodes', null);
+            $('#history-drop').hide();
+        };
+
+        $(document).ready(function () {
+            $('#form').submit(function () {
+                generate();
+                // Scroll to result on mobile
+                $('html, body').animate({
+                    scrollTop: $("#result-area").offset().top - 20
+                }, 500);
+                return false;
+            });
+            $('#save').click(function () {
+                save();
+            });
+
+            // Eye toggle logic adapted for SVG changes
+            $('#display-key').click(function () {
+                var $key = $("#key");
+                var $icon = $("#display-key-icon");
+                if ($key.attr('type') === 'password') {
+                    $key.attr('type', 'text');
+                    // Simple logic to visual indicate change - in real app would swap SVG path
+                    $icon.css('opacity', '0.5');
+                } else {
+                    $key.attr('type', 'password');
+                    $icon.css('opacity', '1');
+                }
+            });
+
+            $('#enc').change(function () {
+                if ($(this).val() != 'nopass') {
+                    $('#key-p').slideDown();
+                    $('#key').attr('required', 'required');
+                }
+                else {
+                    $('#key-p').slideUp();
+                    $('#key').removeAttr('required');
+                }
+            });
+
+            // Toggle history logic
+            $('.history-btn').click(function () {
+                $('.dropdown-menu').toggle();
+            });
+
+            loadhistory();
+        });
+
+        // Service Worker installation
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js', { scope: './' }).then(function (registration) {
+                    console.log('[Service Worker] Successfully installed');
+                }).catch(function (error) {
+                    console.log('[Service Worker] Installation failed:', error);
+                })
+            });
+        }
+    </script>
+</body>
+
+</html>

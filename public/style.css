@@ -1,0 +1,304 @@
+:root {
+    --primary-color: #0070f3;
+    --primary-hover: #0366d6;
+    --bg-gradient-start: #f5f7fa;
+    --bg-gradient-end: #c3cfe2;
+    --card-bg: #ffffff;
+    --text-main: #333;
+    --text-muted: #666;
+    --border-color: #eaeaea;
+    --input-bg: #f9f9f9;
+    --radius: 8px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1#title {
+    margin: 0 0 10px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 12px 12px 12px 40px; /* Space for icon */
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--input-bg);
+    font-size: 1rem;
+    color: var(--text-main);
+    transition: all 0.2s;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+}
+
+select {
+    padding-left: 12px;
+}
+
+/* Adjust padding if no icon wrapper used for select */
+.input-wrapper select {
+    padding-right: 35px;
+}
+
+.select-arrow {
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+    color: var(--text-muted);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0,112,243,0.1);
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    padding: 4px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-group input {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+}
+
+.checkbox-group label {
+    margin: 0;
+    font-weight: 400;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-secondary {
+    background: #e2e8f0;
+    color: #4a5568;
+}
+
+.btn-secondary:hover {
+    background: #cbd5e0;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.btn-outline:hover {
+    border-color: var(--text-muted);
+    color: var(--text-main);
+}
+
+#result-area {
+    margin-top: 40px;
+    text-align: center;
+}
+
+#showssid, #showkey {
+    display: none; /* hidden by default */
+    margin: 5px 0;
+}
+
+#showssid { font-size: 1.1rem; }
+#showkey { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); }
+
+#qrcode {
+    margin-top: 20px;
+}
+
+#qrcode canvas {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* History Dropdown Styles */
+.history-dropdown {
+    margin-bottom: 20px;
+    text-align: right;
+    position: relative;
+}
+
+.history-btn {
+    background: none;
+    border: none;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 200px;
+    z-index: 10;
+    display: none;
+}
+
+.dropdown-menu li {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-menu li:last-child {
+    border-bottom: none;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.dropdown-menu a:hover {
+    background: #f9f9f9;
+}
+
+/* Hide extra buttons initially */
+#save, #export, #print {
+    display: none;
+}
+
+footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+footer a {
+    color: #999;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+
+@media print {
+    body { background: white; padding: 0; }
+    .card { box-shadow: none; padding: 0; }
+    .page-header, #form, #history-drop, footer, .btn { display: none !important; }
+    #result-area { display: block !important; margin: 0; }
+    #qrcode canvas { box-shadow: none; }
+    #showssid, #showkey { display: block !important; color: black; }
+}
